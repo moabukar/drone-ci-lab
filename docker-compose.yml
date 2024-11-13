@@ -13,6 +13,9 @@ services:
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
       - DRONE_SERVER_HOST=4cff-86-171-212-33.ngrok-free.app
       - DRONE_SERVER_PROTO=https
+      - DRONE_UI_USERNAME=${DRONE_UI_USERNAME}
+      - DRONE_UI_PASSWORD=${DRONE_UI_PASSWORD}
+
     ports:
       - "8080:80"
     networks:
@@ -28,7 +31,7 @@ services:
       - DRONE_RPC_PROTO=http
       - DRONE_RPC_HOST=drone
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
-      - DRONE_RUNNER_NAME=my-first-runner
+      - DRONE_RUNNER_NAME=runner-demo
     ports:
       - "3000:3000"
     networks:
