@@ -1,3 +1,5 @@
+[![Build Status](https://4cff-86-171-212-33.ngrok-free.app/api/badges/moabukar/drone-ci-lab/status.svg?ref=refs/heads/main)](https://4cff-86-171-212-33.ngrok-free.app/moabukar/drone-ci-lab)
+
 # Drone CI Labs
 
 ## 📝 Notes
