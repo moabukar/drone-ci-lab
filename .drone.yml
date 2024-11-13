@@ -1,46 +1,46 @@
-# kind: pipeline
-# type: docker
-# name: default
-
-# # platform:  
-# # os: linux  
-# # arch: arm64
-
-# steps:
-#   - name: setup
-#     image: python:3.8
-#     commands:
-#       - pip install -r requirements.txt || true 
-
-#   - name: run
-#     image: python:3.8
-#     commands:
-#       - python main.py
-
-#   - name: test
-#     image: python:3.8
-#     commands:
-#       - pip install pytest
-#       - pytest
-
 kind: pipeline
 type: docker
-name: simple-pipeline
+name: default
+
+# platform:  
+# os: linux  
+# arch: arm64
 
 steps:
-  - name: greet
-    image: alpine
+  - name: setup
+    image: python:3.8
     commands:
-      - echo "Hello, Drone CI!"
+      - pip install -r requirements.txt || true 
 
-  - name: environment-check
-    image: alpine
+  - name: run
+    image: python:3.8
     commands:
-      - echo "Listing environment variables:"
-      - env
+      - python main.py
 
-  - name: display-date
-    image: alpine
+  - name: test
+    image: python:3.8
     commands:
-      - echo "The current date and time is:"
-      - date
+      - pip install pytest
+      - pytest
+
+# kind: pipeline
+# type: docker
+# name: simple-pipeline
+
+# steps:
+#   - name: greet
+#     image: alpine
+#     commands:
+#       - echo "Hello, Drone CI!"
+
+#   - name: environment-check
+#     image: alpine
+#     commands:
+#       - echo "Listing environment variables:"
+#       - env
+
+#   - name: display-date
+#     image: alpine
+#     commands:
+#       - echo "The current date and time is:"
+#       - date
