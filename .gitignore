@@ -1,3 +1,6 @@
 .DS_Store
 *.env
 drone_data/*
+
+.env.other
+data/*

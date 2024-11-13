@@ -8,34 +8,19 @@
 ## 🚀 Setup with Docker compose
 
 ```bash
-## Create a .env file and add secrets there from GitHub.
 
+## Create a GitHub OAuth App
+
+## Create a .env file and add secrets there from GitHub OAuth App.
+openssl rand -hex 16 ## for the DRONE_RPC_SECRET
 # Set the environment variables so docker compose can consume.
 export $(cat .env | xargs)
 
+ngrok http 8080
+docker network create drone-net
 # Start drone agent/server
 docker compose up -d
-
 ## Access on
 
-localhost:8000
-```
-
-
-## Setup with Docker
-
-```bash
-docker run \
-  --volume=/var/lib/drone:/data \
-  --env=DRONE_GITHUB_CLIENT_ID=your-id \
-  --env=DRONE_GITHUB_CLIENT_SECRET=super-duper-secret \
-  --env=DRONE_RPC_SECRET=super-duper-secret \
-  --env=DRONE_SERVER_HOST=drone.company.com \
-  --env=DRONE_SERVER_PROTO=https \
-  --publish=80:80 \
-  --publish=443:443 \
-  --restart=always \
-  --detach=true \
-  --name=drone \
-  drone/drone:2
+https://4cff-86-171-212-33.ngrok-free.app/login
 ```
