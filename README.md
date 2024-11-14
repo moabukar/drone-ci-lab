@@ -21,3 +21,21 @@ docker compose up -d
 ## Access on
 https://4cff-86-171-212-33.ngrok-free.app/login
 ```
+
+
+## 🚀 Setup with Kubernetes
+
+```bash
+kind create cluster --config k8s/kind.yml
+
+echo -n 'secret' | base64 ## put these into k8s/secret.yml
+kubectl apply -f k8s/
+
+```
+
+## Advanced
+
+```bash
+drone user add prometheus --admin --machine \
+    --token=<>
+```

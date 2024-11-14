@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drone-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drone-server
+  template:
+    metadata:
+      labels:
+        app: drone-server
+    spec:
+      containers:
+        - name: drone
+          image: drone/drone:2
+          ports:
+            - containerPort: 80
+          env:
+            - name: DRONE_GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: drone-secrets
+                  key: DRONE_GITHUB_CLIENT_ID
+            - name: DRONE_GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: drone-secrets
+                  key: DRONE_GITHUB_CLIENT_SECRET
+            - name: DRONE_RPC_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: drone-secrets
+                  key: DRONE_RPC_SECRET
+            - name: DRONE_UI_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: drone-secrets
+                  key: DRONE_UI_USERNAME
+            - name: DRONE_UI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: drone-secrets
+                  key: DRONE_UI_PASSWORD
+            - name: DRONE_SERVER_HOST
+              value: "https://4cff-86-171-212-33.ngrok-free.app"
+            - name: DRONE_SERVER_PROTO
+              value: "https"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: drone-data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: drone-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drone-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+  selector:
+    app: drone-server
